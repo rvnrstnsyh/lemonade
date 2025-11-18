@@ -1,60 +1,60 @@
 {
-  "nodeModulesDir": "manual",
-  "tasks": {
-    "check": "deno fmt --check . && deno lint . && deno check",
-    "dev": "vite",
-    "build": "vite build",
-    "start": "deno serve -A _fresh/server.js",
-    "update": "deno run -A -r jsr:@fresh/update ."
-  },
-  "lint": {
-    "rules": {
-      "tags": [
-        "fresh",
-        "recommended"
-      ]
-    }
-  },
-  "exclude": [
-    "**/_fresh/*"
-  ],
-  "imports": {
-    "@/": "./",
-    "fresh": "jsr:@fresh/core@^2.1.4",
-    "preact": "npm:preact@^10.27.2",
-    "@preact/signals": "npm:@preact/signals@^2.3.2",
-    "@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^1.0.7",
-    "vite": "npm:vite@^7.1.3",
-    "tailwindcss": "npm:tailwindcss@^4.1.10",
-    "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.12"
-  },
-  "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.asynciterable",
-      "dom.iterable",
-      "deno.ns"
-    ],
-    "jsx": "precompile",
-    "jsxImportSource": "preact",
-    "jsxPrecompileSkipElements": [
-      "a",
-      "img",
-      "source",
-      "body",
-      "html",
-      "head",
-      "title",
-      "meta",
-      "script",
-      "link",
-      "style",
-      "base",
-      "noscript",
-      "template"
-    ],
-    "types": [
-      "vite/client"
-    ]
-  }
+	"nodeModulesDir": "auto",
+	"deploy": { "project": "lemonade", "exclude": ["**/node_modules"], "include": [], "entrypoint": "main.ts" },
+	"tasks": {
+		"check": "deno run --allow-read --allow-write --allow-run .scripts/check.ts",
+		"compile": "deno compile --output lemonade --include _fresh -A _fresh/compiled-entry.js",
+		"dev": "vite",
+		"build": "vite build",
+		"start": "deno serve -A _fresh/server.js",
+		"update": "deno run -A -r jsr:@fresh/update .",
+		"db:generate": "deno --env -A --node-modules-dir npm:drizzle-kit --config=drizzle.config.ts generate",
+		"db:migrate": "deno --env -A --node-modules-dir npm:drizzle-kit --config=drizzle.config.ts migrate",
+		"db:push": "deno --env -A --node-modules-dir npm:drizzle-kit --config=drizzle.config.ts push",
+		"db:pull": "deno --env -A --node-modules-dir npm:drizzle-kit --config=drizzle.config.ts pull",
+		"db:export": "deno --env -A --node-modules-dir npm:drizzle-kit --config=drizzle.config.ts export",
+		"db:check": "deno --env -A --node-modules-dir npm:drizzle-kit --config=drizzle.config.ts check",
+		"db:up": "deno --env -A --node-modules-dir npm:drizzle-kit --config=drizzle.config.ts up"
+	},
+	"compilerOptions": {
+		"lib": ["dom", "dom.asynciterable", "dom.iterable", "deno.ns"],
+		"jsx": "precompile",
+		"jsxImportSource": "preact",
+		"jsxPrecompileSkipElements": ["a", "img", "source", "body", "html", "head", "title", "meta", "script", "link", "style", "base", "noscript", "template"],
+		"types": ["vite/client"]
+	},
+	"lint": {
+		"include": ["**/*.ts", "**/.*/**/*.ts", "**/*.tsx", "**/.*/**/*.tsx", ".scripts/**/*.ts"],
+		"exclude": ["**/*build/*", "**/*dist/*", "**/*fresh/*", "**/*.hbs"],
+		"rules": {
+			"tags": ["recommended", "fresh"],
+			"include": ["no-console", "no-unused-vars", "no-explicit-any", "no-non-null-assertion", "ban-untagged-todo"],
+			"exclude": []
+		}
+	},
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 170,
+		"indentWidth": 4,
+		"semiColons": false,
+		"singleQuote": true,
+		"proseWrap": "preserve",
+		"include": ["**/*.ts", "**/.*/**/*.ts", "**/*.tsx", "**/.*/**/*.tsx", ".scripts/**/*.ts"],
+		"exclude": ["**/*build/*", "**/*dist/*", "**/*fresh/*", "**/*.hbs"]
+	},
+	"exclude": ["**/*build/*", "**/*dist/*", "**/*fresh/*", "**/_fresh/*"],
+	"imports": {
+		"@/": "./",
+		"@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^1.0.7",
+		"@preact/signals": "npm:@preact/signals@^2.3.2",
+		"@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.12",
+		"@types/pg": "npm:@types/pg@^8.15.6",
+		"drizzle-kit": "npm:drizzle-kit@^0.31.7",
+		"drizzle-orm": "npm:drizzle-orm@^0.44.7",
+		"fresh": "jsr:@fresh/core@^2.1.4",
+		"pg": "npm:pg@^8.16.3",
+		"preact": "npm:preact@^10.27.2",
+		"tailwindcss": "npm:tailwindcss@^4.1.10",
+		"vite": "npm:vite@^7.1.3"
+	}
 }
