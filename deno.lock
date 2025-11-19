@@ -48,6 +48,7 @@
     "npm:preact@^10.27.2": "10.27.2",
     "npm:rollup@^4.50.0": "4.53.1",
     "npm:tailwindcss@^4.1.10": "4.1.17",
+    "npm:uuid@13": "13.0.0",
     "npm:vite@^7.1.3": "7.2.2_@types+node@24.2.0_picomatch@4.0.3",
     "npm:vite@^7.1.4": "7.2.2_@types+node@24.2.0_picomatch@4.0.3"
   },
@@ -1352,6 +1353,10 @@
       ],
       "bin": true
     },
+    "uuid@13.0.0": {
+      "integrity": "sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==",
+      "bin": true
+    },
     "vite@7.2.2_@types+node@24.2.0_picomatch@4.0.3": {
       "integrity": "sha512-BxAKBWmIbrDgrokdGZH1IgkIk/5mMHDreLDmCJ0qpyJaAteP8NvMhkwr/ZCQNqNH97bw/dANTE9PDzqwJghfMQ==",
       "dependencies": [
@@ -1390,6 +1395,7 @@
       "npm:pg@^8.16.3",
       "npm:preact@^10.27.2",
       "npm:tailwindcss@^4.1.10",
+      "npm:uuid@13",
       "npm:vite@^7.1.3"
     ]
   }

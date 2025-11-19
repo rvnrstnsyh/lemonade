@@ -55,6 +55,7 @@
 		"pg": "npm:pg@^8.16.3",
 		"preact": "npm:preact@^10.27.2",
 		"tailwindcss": "npm:tailwindcss@^4.1.10",
+		"uuid": "npm:uuid@^13.0.0",
 		"vite": "npm:vite@^7.1.3"
 	}
 }
