@@ -1,7 +1,7 @@
-import * as schema from '@/database/schemas/index.ts'
+import * as schema from '@/databases/postgresql/schemas/barrel.ts'
 
 import { Pool } from 'pg'
-import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js'
+import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres'
 
 const client: Pool = new Pool({
 	connectionString: Deno.env.get('DB_URL'),
@@ -13,6 +13,6 @@ const client: Pool = new Pool({
 	max: Number(Deno.env.get('DB_POOL_SIZE')),
 	idleTimeoutMillis: Number(Deno.env.get('DB_TIMEOUT')),
 })
-const psql: PostgresJsDatabase<Record<string, unknown>> = drizzle({ client, schema, casing: 'snake_case' })
+const psql: NodePgDatabase<Record<string, unknown>> = drizzle({ client, schema, casing: 'snake_case' })
 
 export default psql

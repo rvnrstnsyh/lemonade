@@ -17,6 +17,9 @@ dist
 fresh
 drizzle
 
+# key files
+.keys
+
 # npm + other dependencies
 node_modules
 vendor

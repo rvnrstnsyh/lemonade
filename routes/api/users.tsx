@@ -1,10 +1,10 @@
 import { Context } from 'fresh'
 import { define, State } from '@/utils.ts'
 import { httpSuccess } from '@/utils/http/success.ts'
-import { createPagination, PaginationResult } from '@/utils/pagination.ts'
+import { createPagination, PaginationResult } from '@/utils/common/pagination.ts'
 
 export const handler: RouteHandlers = define.handlers({
-	GET(ctx: Context<State>) {
+	GET(ctx: Context<State>): Response | Promise<Response> {
 		// Get page and limit from query
 		const url: URL = new URL(ctx.req.url)
 		const page: number = Number(url.searchParams.get('page'))
