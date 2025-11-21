@@ -20,6 +20,14 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
 
+      - name: Setup cache for Deno
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('deno.json', 'deno.jsonc', 'import_map.json') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-
+
       - name: Install Deno
         uses: denoland/setup-deno@v2
         with:

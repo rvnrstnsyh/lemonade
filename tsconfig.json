@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "moduleResolution": "node",
+    "target": "ES2024",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     },
-    "types": ["vite/client"],
-    "lib": ["dom", "dom.asynciterable", "dom.iterable", "ES2022"],
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "preact",
+    "lib": ["dom", "dom.asynciterable", "dom.iterable", "ES2024"]
   }
 }
