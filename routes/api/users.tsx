@@ -14,7 +14,7 @@ export const handler: RouteHandlers = define.handlers({
 		// Generate pagination meta
 		const pagination: PaginationResult = createPagination({ page, limit }, total)
 		// Dummy data according to offset + limit
-		const data: Array<{ id: number; name: string }> = Array.from({ length: pagination.limit }, (_, i) => ({
+		const data: Array<{ id: number; name: string }> = Array.from({ length: pagination.limit }, (_, i): { id: number; name: string } => ({
 			id: pagination.offset + i + 1,
 			name: `User ${pagination.offset + i + 1}`,
 		}))

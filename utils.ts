@@ -4,6 +4,7 @@ import { createDefine, Define } from 'fresh'
 // data among middlewares, layouts and routes.
 export interface State<T = unknown> {
 	request: {
+		_id: string
 		startTime: number
 		body?: T
 	}

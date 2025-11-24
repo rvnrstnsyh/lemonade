@@ -1,4 +1,6 @@
+import { v7 as uuidv7 } from 'uuid'
 import { define, type State } from '@/utils.ts'
+import { httpError } from '@/utils/http/error.ts'
 import { App, Context, cors, csrf, staticFiles, trailingSlashes } from 'fresh'
 
 export const app: App<State> = new App<State>()
@@ -39,7 +41,7 @@ app
 	.use(trailingSlashes('never'))
 	// Enable CORS protection
 	.use(cors({
-		origin: (origin: string, _ctx: Context<State>) => {
+		origin: (origin: string, _ctx: Context<State>): string | undefined => {
 			if (!origin) return undefined
 			// Return the origin only if it's allowed, otherwise undefined (CORS denied)
 			return allowedOrigins(origin) ? origin : undefined
@@ -52,7 +54,7 @@ app
 	}))
 	// Enable CSRF protection
 	.use(csrf({
-		origin: (origin: string | undefined) => {
+		origin: (origin: string | undefined): boolean => {
 			if (!origin) return false
 			// Return true only if origin is valid
 			return allowedOrigins(origin)
@@ -60,8 +62,9 @@ app
 	}))
 	// Serve static files (CSS, JS, images, etc.)
 	.use(staticFiles())
-	.use(define.middleware(async (ctx: Context<State>) => {
+	.use(define.middleware(async (ctx: Context<State>): Promise<Response> => {
 		ctx.state.request = {
+			_id: uuidv7({ msecs: new Date().getTime() }),
 			startTime: performance.now(),
 		}
 		const response: Response = await ctx.next()
@@ -69,11 +72,11 @@ app
 		console.log(`${new Date().toISOString()} - ${ctx.req.method} ${ctx.req.url} - ${(performance.now() - ctx.state.request.startTime).toFixed(2)}ms`)
 		return response
 	}))
-	.notFound((_ctx: Context<State>) => new Response('404 Not Found', { status: 404 }))
-	.onError('*', (ctx: Context<State>) => {
+	.notFound((ctx: Context<State>): Response => httpError.notFound(ctx, '404 Not Found'))
+	.onError('*', (ctx: Context<State>): Response => {
 		// deno-lint-ignore no-console
 		console.log(ctx.error)
-		return new Response('500 Internal Server Error', { status: 500 })
+		return httpError.internalServerError(ctx, '500 Internal Server Error')
 	})
 	// Include file-system based routes here
 	.fsRoutes()

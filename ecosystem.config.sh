@@ -1,3 +1,3 @@
 #!/bin/bash
 
-deno serve -A _fresh/server.js
+deno serve -A _dist/server.js

@@ -14,3 +14,5 @@ declare global {
 		TRACE?(ctx: Context<State>): Response | Promise<Response>
 	}
 }
+
+export {}

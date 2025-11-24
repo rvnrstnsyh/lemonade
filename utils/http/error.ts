@@ -1,6 +1,5 @@
 import { Context } from 'fresh'
 import { State } from '@/utils.ts'
-import { v7 as uuidv7 } from 'uuid'
 
 /**
  * Comprehensive HTTP error handler providing standardized error responses
@@ -210,7 +209,7 @@ function createErrorResponse(
 	const responseTimeMs: number = parseFloat((performance.now() - ctx.state.request.startTime).toFixed(2))
 	const response: ErrorResponse = {
 		meta: {
-			requestId: uuidv7({ msecs: new Date().getTime() }),
+			requestId: ctx.state.request._id,
 			path: ctx.url.pathname,
 			status,
 			message: options.message,

@@ -1,6 +1,5 @@
 import { Context } from 'fresh'
 import { State } from '@/utils.ts'
-import { v7 as uuidv7 } from 'uuid'
 
 /**
  * Comprehensive HTTP success response module providing standardized
@@ -174,7 +173,7 @@ function getResponseTime(ctx: Context<State>): number {
  */
 function buildMeta(ctx: Context<State>, status: number, message: string, extra?: unknown): MetaBase {
 	return {
-		requestId: uuidv7({ msecs: Date.now() }),
+		requestId: ctx.state.request._id,
 		path: ctx.url.pathname,
 		status,
 		timestamp: new Date().toISOString(),

@@ -31,7 +31,7 @@ export default defineConfig({
 		 * support range. See https://esbuild.github.io/api/#target
 		 * @default {"es2022"}
 		 */
-		target: ['es2022'],
+		target: ['es2024'],
 	},
 	plugins: [
 		fresh({

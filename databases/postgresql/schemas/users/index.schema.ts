@@ -1,7 +1,10 @@
-import { integer, PgTable, pgTable, varchar } from 'drizzle-orm/pg-core'
+import * as drizzle from 'drizzle-orm/pg-core'
 
-export const users: PgTable = pgTable('users', {
-	id: integer('id').generatedAlwaysAsIdentity().primaryKey(),
-	name: varchar('name', { length: 255 }).notNull(),
-	email: varchar('email', { length: 255 }).notNull().unique(),
-})
+export const users: drizzle.PgTable = drizzle.pgTable('users', {
+	id: drizzle.integer('id').generatedAlwaysAsIdentity(),
+	name: drizzle.varchar('name', { length: 255 }).notNull(),
+	email: drizzle.varchar('email', { length: 255 }).notNull().unique(),
+}, (table): Array<drizzle.PrimaryKeyBuilder> => [
+	drizzle.primaryKey({ name: 'pk_users', columns: [table.id] }),
+	drizzle.unique('uq_users_email').on(table.email),
+]) as drizzle.PgTable
